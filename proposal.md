@@ -7,7 +7,9 @@ Anna, Bowen, Apiu
 ### Description:
 
 The classic game of Tic-Tac-Toe, played by two users on the same device. They will have the option of playing the ultimate version, where there are smaller games within the bigger game.
+
 ### Details:
+
 - It will be randomized who goes first.
 - There are 8 possible ways to win, including 3 of one symbol vertically, horizontally, or diagonally.
 - The users will have the option to start a new game, keeping track of previous wins.
