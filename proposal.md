@@ -1,5 +1,7 @@
 ## Ultimate Tic-Tac-Toe
+
 ### Group Members:
+
 Anna, Bowen, Apiu
 ### Description:
 The classic game of Tic-Tac-Toe, played by two users on the same device. They will have the option of playing the ultimate version, where there are smaller games within the bigger game.
