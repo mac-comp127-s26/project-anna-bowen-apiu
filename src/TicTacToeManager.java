@@ -1,8 +1,6 @@
 import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Image;
-import edu.macalester.graphics.Rectangle;
 
 public class TicTacToeManager {
     private static final int CANVAS_WIDTH = 600;
