@@ -25,7 +25,7 @@ public class TicTacToeGame {
         canvas = new CanvasWindow("Tic-Tac-Toe!", CANVAS_WIDTH, CANVAS_HEIGHT);
         grid = new Grid();
         canvas.add(grid);
-        restartButton=new Button("Play again");
+        restartButton=new Button("New Game");
         restartButton.setPosition(245.0,700.0);
         canvas.add(restartButton);
         restartButton.onClick(() -> {
