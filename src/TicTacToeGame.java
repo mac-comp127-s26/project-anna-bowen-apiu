@@ -9,7 +9,8 @@ import edu.macalester.graphics.ui.Button;
 public class TicTacToeGame {
     private static final int CANVAS_WIDTH = 600;
     private static final int CANVAS_HEIGHT = 800;
-    private Set<GraphicsObject>filledCells=new HashSet<>();
+    private Set<GraphicsObject>filledCells = new HashSet<>();
+    private Set<GraphicsObject> symbols = new HashSet<>();
     private Button restartButton;
    
     
@@ -22,20 +23,14 @@ public class TicTacToeGame {
     public TicTacToeGame() {
         gameCount = 0;
         canvas = new CanvasWindow("Tic-Tac-Toe!", CANVAS_WIDTH, CANVAS_HEIGHT);
-        newGame();
-        restartButton=new Button("Play again");
-        restartButton.setPosition(200.0,700.0);
-        canvas.add(restartButton);
-    }
-    
-    private void newGame() {
-        gameCount++;
         grid = new Grid();
         canvas.add(grid);
-        addSymbol();
-    }
-    
-    private void addSymbol() {
+        restartButton=new Button("Play again");
+        restartButton.setPosition(245.0,700.0);
+        canvas.add(restartButton);
+        restartButton.onClick(() -> {
+            newGame();
+        });
         canvas.onMouseDown(event -> {
             double x = event.getPosition().getX();
             double y = event.getPosition().getY();
@@ -62,10 +57,21 @@ public class TicTacToeGame {
                 symbol.setScale(0.5);
                 symbol.setPosition(xnew,ynew);
                 canvas.add(symbol);
+                symbols.add(symbol);
                 symbolCount++;
             }
         }
         });
+    }
+    
+    private void newGame() {
+        for (GraphicsObject symbol:symbols) {
+            canvas.remove(symbol);
+        }
+        symbols.clear();
+        filledCells.clear();
+        symbolCount = 0;
+        gameCount++;
     }
     public static void main(String[] args){
         new TicTacToeGame();
