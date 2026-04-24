@@ -23,6 +23,9 @@ public class TicTacToeGame {
         gameCount = 0;
         canvas = new CanvasWindow("Tic-Tac-Toe!", CANVAS_WIDTH, CANVAS_HEIGHT);
         newGame();
+        restartButton=new Button("Play again");
+        restartButton.setPosition(200.0,700.0);
+        canvas.add(restartButton);
     }
     
     private void newGame() {
