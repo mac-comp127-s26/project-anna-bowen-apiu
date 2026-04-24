@@ -1,10 +1,17 @@
+import java.util.HashSet;
+import java.util.Set;
+
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.Image;
+import edu.macalester.graphics.ui.Button;
 
 public class TicTacToeGame {
     private static final int CANVAS_WIDTH = 600;
     private static final int CANVAS_HEIGHT = 800;
+    private Set<GraphicsObject>filledCells=new HashSet<>();
+    private Button restartButton;
+   
     
     private int gameCount;
     private int symbolCount;
@@ -31,6 +38,9 @@ public class TicTacToeGame {
             double y = event.getPosition().getY();
 
             GraphicsObject clicked = grid.getElementAtLocalCoordinates(x, y);
+             if(clicked!=null && !filledCells.contains(clicked)){
+               filledCells.add(clicked);            
+        
 
             if (clicked != null) {
                 String imageFile;
@@ -51,6 +61,7 @@ public class TicTacToeGame {
                 canvas.add(symbol);
                 symbolCount++;
             }
+        }
         });
     }
     public static void main(String[] args){
