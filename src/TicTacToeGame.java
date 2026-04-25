@@ -10,7 +10,8 @@ public class TicTacToeGame {
     private static final int CANVAS_WIDTH = 600;
     private static final int CANVAS_HEIGHT = 800;
     private Set<GraphicsObject>filledCells = new HashSet<>();
-    private Set<GraphicsObject> symbols = new HashSet<>();
+    private Set<GraphicsObject> xSymbols = new HashSet<>();
+    private Set<GraphicsObject> oSymbols = new HashSet<>();
     private Button restartButton;
    
     
@@ -37,14 +38,13 @@ public class TicTacToeGame {
 
             GraphicsObject clicked = grid.getElementAtLocalCoordinates(x, y);
              if(clicked!=null && !filledCells.contains(clicked)){
-               filledCells.add(clicked);            
-        
+               filledCells.add(clicked);
 
-            if (clicked != null) {
                 String imageFile;
 
                 if (symbolCount%2 == 0) {
                     imageFile = "ex.png";
+
                 } else {
                     imageFile = "oh.png";
                 }
@@ -57,21 +57,32 @@ public class TicTacToeGame {
                 symbol.setScale(0.5);
                 symbol.setPosition(xnew,ynew);
                 canvas.add(symbol);
-                symbols.add(symbol);
+                addToSet(imageFile,symbol);
                 symbolCount++;
             }
-        }
         });
     }
     
     private void newGame() {
-        for (GraphicsObject symbol:symbols) {
+        for (GraphicsObject symbol:xSymbols) {
             canvas.remove(symbol);
         }
-        symbols.clear();
+        for (GraphicsObject symbol:oSymbols) {
+            canvas.remove(symbol);
+        }
+        xSymbols.clear();
+        oSymbols.clear();
         filledCells.clear();
         symbolCount = 0;
         gameCount++;
+    }
+
+    private void addToSet(String imageFile, Image symbol) {
+        if (imageFile == "ex.png") {
+            xSymbols.add(symbol);
+        } else {
+            oSymbols.add(symbol);
+        }
     }
     public static void main(String[] args){
         new TicTacToeGame();
