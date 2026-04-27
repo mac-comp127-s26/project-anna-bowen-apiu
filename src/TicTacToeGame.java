@@ -20,6 +20,7 @@ public class TicTacToeGame {
 
     private CanvasWindow canvas;
     private Grid grid;
+    
 
     public TicTacToeGame() {
         gameCount = 0;
@@ -58,7 +59,7 @@ public class TicTacToeGame {
                 symbol.setPosition(xnew,ynew);
                 canvas.add(symbol);
                 addToSet(imageFile,symbol);
-                symbolCount++;
+                symbolCount++;             
             }
         });
     }
