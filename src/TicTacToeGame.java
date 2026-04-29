@@ -1,8 +1,10 @@
+import java.awt.Color;
 import java.util.HashSet;
 import java.util.Set;
 
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsObject;
+import edu.macalester.graphics.GraphicsText;
 import edu.macalester.graphics.Image;
 import edu.macalester.graphics.ui.Button;
 
@@ -18,13 +20,16 @@ public class TicTacToeGame {
     private int gameCount;
     private int symbolCount;
     private boolean isGameRunning;
+    private boolean isWon;
 
     private CanvasWindow canvas;
     private Grid grid;
+    private GraphicsText displayedMessage;
 
     public TicTacToeGame() {
         gameCount = 0;
         isGameRunning = true;
+        isWon = false;
         canvas = new CanvasWindow("Tic-Tac-Toe!", CANVAS_WIDTH, CANVAS_HEIGHT);
         grid = new Grid();
         
@@ -32,6 +37,10 @@ public class TicTacToeGame {
         restartButton=new Button("New Game");
         restartButton.setPosition(245.0,700.0);
         canvas.add(restartButton);
+        displayedMessage = new GraphicsText("Player X's turn", 130, 160);
+        displayedMessage.setFontSize(50);
+        displayedMessage.setFillColor(Color.BLACK);
+        canvas.add(displayedMessage);
         restartButton.onClick(() -> {
             newGame();
         });
@@ -45,6 +54,12 @@ public class TicTacToeGame {
     }
     
     private void newGame() {
+        gameCount++;
+        if (gameCount%2 == 0) {
+            showPlayerTurn("X");
+        } else {
+            showPlayerTurn("O");
+        }
         for (GraphicsObject symbol:symbols) {
             canvas.remove(symbol);
         }
@@ -53,7 +68,6 @@ public class TicTacToeGame {
         board = new String[3][3];
         symbolCount = 0;
         isGameRunning = true;
-        gameCount++;
     }
 
     private void addSymbol(double x, double y) {
@@ -67,23 +81,25 @@ public class TicTacToeGame {
 
             String imageFile;
 
-            if (gameCount%2 == 0){
+            if (gameCount%2 == 0) {
                 if (symbolCount%2 == 0) {
                 board[row][col] = "X";
                 imageFile = "ex.png";
-
+                showPlayerTurn("O");
                 } else {
                     board[row][col] = "O";
-                    imageFile = "oh.png";               
+                    imageFile = "oh.png";
+                    showPlayerTurn("X");             
                 }
             } else {
                 if (symbolCount%2 == 0) {
                 board[row][col] = "O";
                 imageFile = "oh.png";
-
+                showPlayerTurn("X"); 
                 } else {
                     board[row][col] = "X";
-                    imageFile = "ex.png";               
+                    imageFile = "ex.png";
+                    showPlayerTurn("O");               
                 }
             }
 
@@ -98,46 +114,74 @@ public class TicTacToeGame {
             symbols.add(symbol);
             symbolCount++;
             winGame();
-            }
+        }
     }
  
     public void winGame(){
         for(int row = 0;row < 3;row++){
             if (checkWinningConditions(board[row][0],board[row][1],board[row][2])) {
-                    endGame();
+                    endGameWithWin(row,0);
                 }
         }
 
         for(int col = 0;col < 3;col++){
             if(checkWinningConditions(board[0][col],board[1][col],board[2][col])) {
-                    endGame();
+                    endGameWithWin(0,col);
                 }
         }
 
         if (checkWinningConditions(board[0][0],board[1][1],board[2][2])) {
-                endGame();
+                endGameWithWin(0,0);
             }
 
         if (checkWinningConditions(board[0][2],board[1][1],board[2][0])) {
-                endGame();
+                endGameWithWin(0,2);
+            }
+        
+        if (symbols.size() == 9 && !isWon) {
+                showTieMessage();
             }
     }
 
-    public void endGame() {
-        isGameRunning = false;
-        showWinningMessage();
-    }
-    
     public boolean checkWinningConditions(Object a, Object b, Object c) {
         return (a != null && a.equals(b) && b.equals(c));
     }
 
-    public void showWinningMessage() {
-        if (board[0][2] == "X") {
-            System.out.println("Player X wins!");
+    public void endGameWithWin(int a,int b) {
+        isWon = true;
+        isGameRunning = false;
+        showWinningMessage(a,b);
+    }
+
+    public void showPlayerTurn(String symbol) {
+        String message;
+        int x;
+        if (symbol == "X") {
+            message = "Player X's turn";
+            x = 130;
             } else {
-                System.out.println("Player O wins!");
+                message = "Player O's turn";
+                x = 128;
             }
+        displayedMessage.setText(message);
+        displayedMessage.setPosition(x, 160);
+        canvas.add(displayedMessage);
+    }
+    
+    public void showWinningMessage(int a,int b) {
+        String message;
+        if (board[a][b] == "X") {
+            message = "Player X wins!";
+            } else {
+                message = "Player O wins!";
+            }
+        displayedMessage.setText(message);
+        displayedMessage.setPosition(135, 160);
+    }
+
+    public void showTieMessage() {
+        displayedMessage.setText("Tie!");
+        displayedMessage.setPosition(255,160);
     }
             
     public static void main(String[] args){
