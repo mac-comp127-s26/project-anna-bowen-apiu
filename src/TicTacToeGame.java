@@ -48,14 +48,25 @@ public class TicTacToeGame {
 
                 String imageFile;
 
-                if (symbolCount%2 == 0) {
+                if (gameCount%2 ==0){
+                    if (symbolCount%2 == 0) {
                     board[row][col] = "X";
                     imageFile = "ex.png";
 
-                } else {
-                    board[row][col] = "O";
-                    imageFile = "oh.png";               
+                    } else {
+                        board[row][col] = "O";
+                        imageFile = "oh.png";               
                     }
+                } else {
+                    if (symbolCount%2 == 0) {
+                    board[row][col] = "O";
+                    imageFile = "oh.png";
+
+                    } else {
+                        board[row][col] = "X";
+                        imageFile = "ex.png";               
+                    }
+                }
 
                 Image symbol = new Image(x, y, imageFile);
                 double paddingX = (clicked.getWidth() - symbol.getWidth()/2)/2;
@@ -102,7 +113,6 @@ public class TicTacToeGame {
             board[row][1].equals(board[row][2])) {
                 System.out.println("Win in row");
             }
-        
         }
 
         for(int col=0;col<3;col++){
