@@ -13,6 +13,7 @@ public class TicTacToeGame {
     private Set<GraphicsObject> xSymbols = new HashSet<>();
     private Set<GraphicsObject> oSymbols = new HashSet<>();
     private Button restartButton;
+    private String[][] board = new String[3][3];
    
     
     private int gameCount;
@@ -20,12 +21,12 @@ public class TicTacToeGame {
 
     private CanvasWindow canvas;
     private Grid grid;
-    
 
     public TicTacToeGame() {
         gameCount = 0;
         canvas = new CanvasWindow("Tic-Tac-Toe!", CANVAS_WIDTH, CANVAS_HEIGHT);
         grid = new Grid();
+        
         canvas.add(grid);
         restartButton=new Button("New Game");
         restartButton.setPosition(245.0,700.0);
@@ -37,17 +38,25 @@ public class TicTacToeGame {
             double x = event.getPosition().getX();
             double y = event.getPosition().getY();
 
-            GraphicsObject clicked = grid.getElementAtLocalCoordinates(x, y);
-             if(clicked!=null && !filledCells.contains(clicked)){
+           GraphicsObject clicked = grid.getElementAtLocalCoordinates(x, y);
+           Cell cell=(Cell)clicked;
+           int row=cell.getRow();
+           int col=cell.getColumn();
+
+
+            if(clicked!=null && !filledCells.contains(clicked)){
                filledCells.add(clicked);
 
                 String imageFile;
 
                 if (symbolCount%2 == 0) {
+                   board[row][col] = "X";
                     imageFile = "ex.png";
 
                 } else {
-                    imageFile = "oh.png";
+                   board[row][col] = "O";
+                      imageFile = "oh.png";
+                
                 }
 
                 Image symbol = new Image(x, y, imageFile);
@@ -59,9 +68,16 @@ public class TicTacToeGame {
                 symbol.setPosition(xnew,ynew);
                 canvas.add(symbol);
                 addToSet(imageFile,symbol);
-                symbolCount++;             
+                symbolCount++;
+                winGame();
             }
         });
+       
+        
+
+        
+
+        
     }
     
     private void newGame() {
@@ -85,6 +101,29 @@ public class TicTacToeGame {
             oSymbols.add(symbol);
         }
     }
+
+
+    
+    
+    public void winGame(){
+        for(int row=0;row<3;row++){
+            if (board[row][0] != null &&
+            board[row][0].equals(board[row][1]) &&
+            board[row][1].equals(board[row][2])) {
+
+            System.out.println("Win in row");
+            }
+        
+        }
+        for(int col=0;col<3;col++){
+            if(board[0][col]!=null &&
+                board[0][col].equals(board[1][col])&&
+                board[1][col].equals(board[2][col])){
+                  System.out.println("Win in col");   
+                }
+        }
+    }
+            
     public static void main(String[] args){
         new TicTacToeGame();
     }
