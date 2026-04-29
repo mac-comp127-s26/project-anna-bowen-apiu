@@ -138,8 +138,8 @@ public class TicTacToeGame {
                 endGameWithWin(0,2);
             }
         
-        if (symbols.size() == 9 && !isWon) {
-                showTieMessage();
+        if (symbolCount == 9 && !isWon) {
+                endGameWithTie();
             }
     }
 
@@ -153,10 +153,16 @@ public class TicTacToeGame {
         showWinningMessage(a,b);
     }
 
+    public void endGameWithTie() {
+        isGameRunning = false;
+        displayedMessage.setText("Tie!");
+        displayedMessage.setPosition(255,160);
+    }
+
     public void showPlayerTurn(String symbol) {
         String message;
         int x;
-        if (symbol == "X") {
+        if (symbol.equals("X")) {
             message = "Player X's turn";
             x = 130;
             } else {
@@ -170,18 +176,13 @@ public class TicTacToeGame {
     
     public void showWinningMessage(int a,int b) {
         String message;
-        if (board[a][b] == "X") {
+        if (board[a][b].equals("X")) {
             message = "Player X wins!";
             } else {
                 message = "Player O wins!";
             }
         displayedMessage.setText(message);
         displayedMessage.setPosition(135, 160);
-    }
-
-    public void showTieMessage() {
-        displayedMessage.setText("Tie!");
-        displayedMessage.setPosition(255,160);
     }
             
     public static void main(String[] args){
