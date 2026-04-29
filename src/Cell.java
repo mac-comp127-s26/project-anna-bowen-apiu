@@ -1,10 +1,6 @@
 import edu.macalester.graphics.Rectangle;
 
 public class Cell extends Rectangle {
-    private int x;
-    private int y;
-    private int width;
-    private int height;
     private int row;
     private int col;
 

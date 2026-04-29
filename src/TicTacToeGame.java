@@ -10,8 +10,7 @@ public class TicTacToeGame {
     private static final int CANVAS_WIDTH = 600;
     private static final int CANVAS_HEIGHT = 800;
     private Set<GraphicsObject>filledCells = new HashSet<>();
-    private Set<GraphicsObject> xSymbols = new HashSet<>();
-    private Set<GraphicsObject> oSymbols = new HashSet<>();
+    private Set<GraphicsObject> symbols = new HashSet<>();
     private Button restartButton;
     private String[][] board = new String[3][3];
    
@@ -46,14 +45,10 @@ public class TicTacToeGame {
     }
     
     private void newGame() {
-        for (GraphicsObject symbol:xSymbols) {
+        for (GraphicsObject symbol:symbols) {
             canvas.remove(symbol);
         }
-        for (GraphicsObject symbol:oSymbols) {
-            canvas.remove(symbol);
-        }
-        xSymbols.clear();
-        oSymbols.clear();
+        symbols.clear();
         filledCells.clear();
         board = new String[3][3];
         symbolCount = 0;
@@ -63,16 +58,16 @@ public class TicTacToeGame {
 
     private void addSymbol(double x, double y) {
         GraphicsObject clicked = grid.getElementAtLocalCoordinates(x, y);
-        Cell cell=(Cell)clicked;
-        int row=cell.getRow();
-        int col=cell.getColumn();
+        Cell cell = (Cell)clicked;
+        int row = cell.getRow();
+        int col = cell.getColumn();
 
-        if(clicked!=null && !filledCells.contains(clicked)){
+        if(clicked != null && !filledCells.contains(clicked)){
             filledCells.add(clicked);
 
             String imageFile;
 
-            if (gameCount%2 ==0){
+            if (gameCount%2 == 0){
                 if (symbolCount%2 == 0) {
                 board[row][col] = "X";
                 imageFile = "ex.png";
@@ -100,51 +95,48 @@ public class TicTacToeGame {
             symbol.setScale(0.5);
             symbol.setPosition(xnew,ynew);
             canvas.add(symbol);
-            addToSet(imageFile,symbol);
+            symbols.add(symbol);
             symbolCount++;
             winGame();
             }
     }
-
-    private void addToSet(String imageFile, Image symbol) {
-        if (imageFile == "ex.png") {
-            xSymbols.add(symbol);
-        } else {
-            oSymbols.add(symbol);
-        }
-    }
  
     public void winGame(){
-        for(int row=0;row<3;row++){
-            if (board[row][0] != null &&
-            board[row][0].equals(board[row][1]) &&
-            board[row][1].equals(board[row][2])) {
-                System.out.println("Win in row");
-                isGameRunning = false;
-            }
-        }
-
-        for(int col=0;col<3;col++){
-            if(board[0][col] != null &&
-                board[0][col].equals(board[1][col])&&
-                board[1][col].equals(board[2][col])) {
-                    System.out.println("Win in col");
-                    isGameRunning = false;   
+        for(int row = 0;row < 3;row++){
+            if (checkWinningConditions(board[row][0],board[row][1],board[row][2])) {
+                    endGame();
                 }
         }
 
-        if (board[0][0] != null &&
-            board[0][0].equals(board[1][1]) &&
-            board[1][1].equals(board[2][2])) {
-                System.out.println("Win in diagonal");
-                isGameRunning = false;
+        for(int col = 0;col < 3;col++){
+            if(checkWinningConditions(board[0][col],board[1][col],board[2][col])) {
+                    endGame();
+                }
+        }
+
+        if (checkWinningConditions(board[0][0],board[1][1],board[2][2])) {
+                endGame();
             }
 
-        if (board[0][2] != null &&
-            board[0][2].equals(board[1][1]) &&
-            board[1][1].equals(board[2][0])) {
-                System.out.println("Win in diagonal");
-                isGameRunning = false;
+        if (checkWinningConditions(board[0][2],board[1][1],board[2][0])) {
+                endGame();
+            }
+    }
+
+    public void endGame() {
+        isGameRunning = false;
+        showWinningMessage();
+    }
+    
+    public boolean checkWinningConditions(Object a, Object b, Object c) {
+        return (a != null && a.equals(b) && b.equals(c));
+    }
+
+    public void showWinningMessage() {
+        if (board[0][2] == "X") {
+            System.out.println("Player X wins!");
+            } else {
+                System.out.println("Player O wins!");
             }
     }
             
