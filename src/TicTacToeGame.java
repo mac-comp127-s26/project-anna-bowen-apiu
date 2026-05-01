@@ -19,15 +19,22 @@ public class TicTacToeGame {
     
     private int gameCount;
     private int symbolCount;
+    private int xWinCount;
+    private int oWinCount;
     private boolean isGameRunning;
     private boolean isWon;
 
     private CanvasWindow canvas;
     private Grid grid;
+
     private GraphicsText displayedMessage;
+    private GraphicsText xWinCountMessage;
+    private GraphicsText oWinCountMessage;
 
     public TicTacToeGame() {
         gameCount = 0;
+        xWinCount = 0;
+        oWinCount = 0;
         isGameRunning = true;
         isWon = false;
         canvas = new CanvasWindow("Tic-Tac-Toe!", CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -35,12 +42,24 @@ public class TicTacToeGame {
         
         canvas.add(grid);
         restartButton=new Button("New Game");
-        restartButton.setPosition(245.0,700.0);
+        restartButton.setPosition(245.0,680.0);
         canvas.add(restartButton);
+
+        xWinCountMessage = new GraphicsText("X wins: " + xWinCount, 20, 50);
+        xWinCountMessage.setFontSize(40);
+        xWinCountMessage.setFillColor(Color.BLACK);
+        canvas.add(xWinCountMessage);
+
+        oWinCountMessage = new GraphicsText("O wins: " + oWinCount, 390, 50);
+        oWinCountMessage.setFontSize(40);
+        oWinCountMessage.setFillColor(Color.BLACK);
+        canvas.add(oWinCountMessage);
+        
         displayedMessage = new GraphicsText("Player X's turn", 130, 160);
         displayedMessage.setFontSize(50);
         displayedMessage.setFillColor(Color.BLACK);
         canvas.add(displayedMessage);
+
         restartButton.onClick(() -> {
             newGame();
         });
@@ -178,11 +197,19 @@ public class TicTacToeGame {
         String message;
         if (board[a][b].equals("X")) {
             message = "Player X wins!";
+            xWinCount++;
             } else {
                 message = "Player O wins!";
+                oWinCount++;
             }
         displayedMessage.setText(message);
         displayedMessage.setPosition(135, 160);
+        resetWinCount();
+    }
+
+    public void resetWinCount() {
+        xWinCountMessage.setText("X wins: " + xWinCount);
+        oWinCountMessage.setText("O wins: " + oWinCount);
     }
             
     public static void main(String[] args){
