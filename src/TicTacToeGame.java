@@ -14,6 +14,7 @@ public class TicTacToeGame {
     private Set<GraphicsObject>filledCells = new HashSet<>();
     private Set<GraphicsObject> symbols = new HashSet<>();
     private Button restartButton;
+    private Button resetScoresButton;
     private String[][] board = new String[3][3];
    
     
@@ -39,30 +40,30 @@ public class TicTacToeGame {
         isWon = false;
         canvas = new CanvasWindow("Tic-Tac-Toe!", CANVAS_WIDTH, CANVAS_HEIGHT);
         grid = new Grid();
-        
         canvas.add(grid);
-        restartButton=new Button("New Game");
-        restartButton.setPosition(245.0,680.0);
+
+        restartButton = new Button("New Game");
+        restartButton.setPosition(245.0,660.0);
         canvas.add(restartButton);
 
-        xWinCountMessage = new GraphicsText("X wins: " + xWinCount, 20, 50);
-        xWinCountMessage.setFontSize(40);
-        xWinCountMessage.setFillColor(Color.BLACK);
-        canvas.add(xWinCountMessage);
+        resetScoresButton = new Button("Reset Scores");
+        resetScoresButton.setPosition(240.0,710.0);
+        canvas.add(resetScoresButton);
 
-        oWinCountMessage = new GraphicsText("O wins: " + oWinCount, 390, 50);
-        oWinCountMessage.setFontSize(40);
-        oWinCountMessage.setFillColor(Color.BLACK);
-        canvas.add(oWinCountMessage);
-        
-        displayedMessage = new GraphicsText("Player X's turn", 130, 160);
-        displayedMessage.setFontSize(50);
-        displayedMessage.setFillColor(Color.BLACK);
-        canvas.add(displayedMessage);
+        xWinCountMessage = createLabel("X wins: " + xWinCount, 20, 50, 40);
+        oWinCountMessage = createLabel("O wins: " + oWinCount, 390, 50, 40);
+        displayedMessage = createLabel("Player X's turn", 130, 160, 50);
 
         restartButton.onClick(() -> {
             newGame();
         });
+
+        resetScoresButton.onClick(() -> {
+            xWinCount = 0;
+            oWinCount = 0;
+            setWinCount();
+        });
+
         canvas.onMouseDown(event -> {
             if (isGameRunning) {
                 double x = event.getPosition().getX();
@@ -204,12 +205,20 @@ public class TicTacToeGame {
             }
         displayedMessage.setText(message);
         displayedMessage.setPosition(135, 160);
-        resetWinCount();
+        setWinCount();
     }
 
-    public void resetWinCount() {
+    public void setWinCount() {
         xWinCountMessage.setText("X wins: " + xWinCount);
         oWinCountMessage.setText("O wins: " + oWinCount);
+    }
+
+    public GraphicsText createLabel(String message, int x, int y, int fontSize) {
+        GraphicsText label = new GraphicsText(message, x, y);
+        label.setFontSize(fontSize);
+        label.setFillColor(Color.BLACK);
+        canvas.add(label);
+        return label;
     }
             
     public static void main(String[] args){
