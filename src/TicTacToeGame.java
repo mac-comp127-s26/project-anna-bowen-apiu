@@ -6,7 +6,9 @@ import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.GraphicsText;
 import edu.macalester.graphics.Image;
+import edu.macalester.graphics.Rectangle;
 import edu.macalester.graphics.ui.Button;
+
 
 public class TicTacToeGame {
     private static final int CANVAS_WIDTH = 600;
@@ -31,6 +33,9 @@ public class TicTacToeGame {
     private GraphicsText displayedMessage;
     private GraphicsText xWinCountMessage;
     private GraphicsText oWinCountMessage;
+
+    private Rectangle popupBox;
+    private GraphicsText popupText;
 
     public TicTacToeGame() {
         gameCount = 0;
@@ -70,8 +75,16 @@ public class TicTacToeGame {
                 double y = event.getPosition().getY();
                 addSymbol(x,y);
             }
-        });     
+        }); 
+        
+        popupBox = new Rectangle(120, 100, 360, 90);
+        popupBox.setFillColor(Color.WHITE);
+
+        popupText = new GraphicsText("", 180, 155);
+        popupText.setFontSize(36);
+        popupText.setFillColor(Color.RED);  
     }
+
     
     private void newGame() {
         gameCount++;
@@ -88,6 +101,11 @@ public class TicTacToeGame {
         board = new String[3][3];
         symbolCount = 0;
         isGameRunning = true;
+        isWon = false;
+
+        canvas.remove(popupBox);
+        canvas.remove(popupText);
+        popupText.setText("");
     }
 
     private void addSymbol(double x, double y) {
@@ -171,6 +189,7 @@ public class TicTacToeGame {
         isWon = true;
         isGameRunning = false;
         showWinningMessage(a,b);
+        setWinCount();
     }
 
     public void endGameWithTie() {
@@ -195,17 +214,14 @@ public class TicTacToeGame {
     }
     
     public void showWinningMessage(int a,int b) {
-        String message;
+        popupText.setText("Player " + board[a][b] + " wins!");
+        canvas.add(popupBox);
+        canvas.add(popupText);
         if (board[a][b].equals("X")) {
-            message = "Player X wins!";
             xWinCount++;
             } else {
-                message = "Player O wins!";
                 oWinCount++;
             }
-        displayedMessage.setText(message);
-        displayedMessage.setPosition(135, 160);
-        setWinCount();
     }
 
     public void setWinCount() {
@@ -220,6 +236,7 @@ public class TicTacToeGame {
         canvas.add(label);
         return label;
     }
+
             
     public static void main(String[] args){
         new TicTacToeGame();
