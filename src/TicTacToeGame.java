@@ -34,8 +34,8 @@ public class TicTacToeGame {
     private GraphicsText xWinCountMessage;
     private GraphicsText oWinCountMessage;
 
-    private Rectangle popupBox;
-    private GraphicsText popupText;
+    private Rectangle popUpBox;
+    private GraphicsText popUpText;
 
     public TicTacToeGame() {
         gameCount = 0;
@@ -55,9 +55,9 @@ public class TicTacToeGame {
         resetScoresButton.setPosition(240.0,710.0);
         canvas.add(resetScoresButton);
 
-        xWinCountMessage = createLabel("X wins: " + xWinCount, 20, 50, 40);
-        oWinCountMessage = createLabel("O wins: " + oWinCount, 390, 50, 40);
-        displayedMessage = createLabel("Player X's turn", 130, 160, 50);
+        xWinCountMessage = createLabel("X wins: " + xWinCount, 20, 50, 40,2);
+        oWinCountMessage = createLabel("O wins: " + oWinCount, 390, 50, 40,2);
+        displayedMessage = createLabel("Player X's turn", 130, 160, 50,0.25);
 
         restartButton.onClick(() -> {
             newGame();
@@ -77,12 +77,13 @@ public class TicTacToeGame {
             }
         }); 
         
-        popupBox = new Rectangle(120, 100, 360, 90);
-        popupBox.setFillColor(Color.WHITE);
+        popUpBox = new Rectangle(120, 100, 360, 90);
+        popUpBox.setFillColor(Color.WHITE);
 
-        popupText = new GraphicsText("", 180, 155);
-        popupText.setFontSize(36);
-        popupText.setFillColor(Color.RED);  
+        popUpText = new GraphicsText("", 180, 155);
+        popUpText.setFontSize(36);
+        popUpText.setStrokeWidth(3);
+        popUpText.setFillColor(Color.RED);  
     }
 
     
@@ -96,6 +97,7 @@ public class TicTacToeGame {
         for (GraphicsObject symbol:symbols) {
             canvas.remove(symbol);
         }
+        canvas.setBackground(Color.WHITE);
         symbols.clear();
         filledCells.clear();
         board = new String[3][3];
@@ -103,9 +105,9 @@ public class TicTacToeGame {
         isGameRunning = true;
         isWon = false;
 
-        canvas.remove(popupBox);
-        canvas.remove(popupText);
-        popupText.setText("");
+        canvas.remove(popUpBox);
+        canvas.remove(popUpText);
+        popUpText.setText("");
     }
 
     private void addSymbol(double x, double y) {
@@ -158,26 +160,26 @@ public class TicTacToeGame {
     public void winGame(){
         for(int row = 0;row < 3;row++){
             if (checkWinningConditions(board[row][0],board[row][1],board[row][2])) {
-                    endGameWithWin(row,0);
+                    endRoundWithWin(row,0);
                 }
         }
 
         for(int col = 0;col < 3;col++){
             if(checkWinningConditions(board[0][col],board[1][col],board[2][col])) {
-                    endGameWithWin(0,col);
+                    endRoundWithWin(0,col);
                 }
         }
 
         if (checkWinningConditions(board[0][0],board[1][1],board[2][2])) {
-                endGameWithWin(0,0);
+                endRoundWithWin(0,0);
             }
 
         if (checkWinningConditions(board[0][2],board[1][1],board[2][0])) {
-                endGameWithWin(0,2);
+                endRoundWithWin(0,2);
             }
         
         if (symbolCount == 9 && !isWon) {
-                endGameWithTie();
+                endRoundWithTie();
             }
     }
 
@@ -185,17 +187,20 @@ public class TicTacToeGame {
         return (a != null && a.equals(b) && b.equals(c));
     }
 
-    public void endGameWithWin(int a,int b) {
+    public void endRoundWithWin(int a,int b) {
         isWon = true;
         isGameRunning = false;
         showWinningMessage(a,b);
         setWinCount();
     }
 
-    public void endGameWithTie() {
+    public void endRoundWithTie() {
         isGameRunning = false;
-        displayedMessage.setText("Tie!");
-        displayedMessage.setPosition(255,160);
+        popUpText.setText("Tie!");
+        popUpText.setPosition(270, 155);
+        canvas.add(popUpBox);
+        canvas.add(popUpText);
+         canvas.setBackground(Color.decode("#E0CCFF"));
     }
 
     public void showPlayerTurn(String symbol) {
@@ -214,12 +219,15 @@ public class TicTacToeGame {
     }
     
     public void showWinningMessage(int a,int b) {
-        popupText.setText("Player " + board[a][b] + " wins!");
-        canvas.add(popupBox);
-        canvas.add(popupText);
+        popUpText.setText("Player " + board[a][b] + " wins!");
+        popUpText.setPosition(180, 155);
+        canvas.add(popUpBox);
+        canvas.add(popUpText);
         if (board[a][b].equals("X")) {
+            canvas.setBackground(Color.decode("#FFBCB5"));
             xWinCount++;
             } else {
+                canvas.setBackground(Color.decode("#B8D6FF"));
                 oWinCount++;
             }
     }
@@ -229,15 +237,15 @@ public class TicTacToeGame {
         oWinCountMessage.setText("O wins: " + oWinCount);
     }
 
-    public GraphicsText createLabel(String message, int x, int y, int fontSize) {
+    public GraphicsText createLabel(String message, int x, int y, int fontSize, double strokeWidth) {
         GraphicsText label = new GraphicsText(message, x, y);
         label.setFontSize(fontSize);
         label.setFillColor(Color.BLACK);
+        label.setStrokeWidth(strokeWidth);
         canvas.add(label);
         return label;
     }
-
-            
+    
     public static void main(String[] args){
         new TicTacToeGame();
     }
