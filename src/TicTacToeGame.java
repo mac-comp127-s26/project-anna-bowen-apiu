@@ -59,6 +59,14 @@ public class TicTacToeGame {
         oWinCountMessage = createLabel("O wins: " + oWinCount, 390, 50, 40,2);
         displayedMessage = createLabel("Player X's turn", 130, 160, 50,0.25);
 
+        canvas.onMouseDown(event -> {
+            if (isGameRunning) {
+                double x = event.getPosition().getX();
+                double y = event.getPosition().getY();
+                addSymbol(x,y);
+            }
+        });
+        
         restartButton.onClick(() -> {
             newGame();
         });
@@ -68,14 +76,6 @@ public class TicTacToeGame {
             oWinCount = 0;
             setWinCount();
         });
-
-        canvas.onMouseDown(event -> {
-            if (isGameRunning) {
-                double x = event.getPosition().getX();
-                double y = event.getPosition().getY();
-                addSymbol(x,y);
-            }
-        }); 
         
         popUpBox = new Rectangle(120, 100, 360, 90);
         popUpBox.setFillColor(Color.WHITE);
