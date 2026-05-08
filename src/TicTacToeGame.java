@@ -9,6 +9,16 @@ import edu.macalester.graphics.Image;
 import edu.macalester.graphics.Rectangle;
 import edu.macalester.graphics.ui.Button;
 
+/**
+ * Main class for running and playing the Tic Tac Toe Game.
+ * 
+ * @author Anna Wurtz <awurtz@macalester.edu>
+ * @author Apiu Agou <akur@macalester.edu>
+ * @author Bowen Tang <btang1@macalester.edu>
+ * 
+ * This class creates the game window, handles user interaction,
+ * and manages the game logic and score tracking.
+ */
 
 public class TicTacToeGame {
     private static final int CANVAS_WIDTH = 600;
@@ -37,10 +47,21 @@ public class TicTacToeGame {
     private Rectangle popUpBox;
     private GraphicsText popUpText;
 
+    /**
+     * Main entry point for the Tic Tac Toe Game.
+     */
+    public static void main(String[] args){
+        new TicTacToeGame();
+    }
+    
+    /**
+     * Construct a new Tic Tac Toe Game.
+     */
     public TicTacToeGame() {
         gameCount = 0;
         xWinCount = 0;
         oWinCount = 0;
+        symbolCount = 0;
         isGameRunning = true;
         isWon = false;
         canvas = new CanvasWindow("Tic-Tac-Toe!", CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -86,7 +107,10 @@ public class TicTacToeGame {
         popUpText.setFillColor(Color.RED);  
     }
 
-    
+    /**
+     * Resets game by clearing symbols from the grid and resetting
+     * instance variables for a new round.
+     */
     private void newGame() {
         gameCount++;
         if (gameCount%2 == 0) {
@@ -110,6 +134,13 @@ public class TicTacToeGame {
         popUpText.setText("");
     }
 
+    /**
+     * Adds either an X or O symbol to board, centered in the selected cell,
+     * if the clicked location inside a valid cell and the cell is not already filled.
+     * 
+     * @param x The x-coordinate of the clicked location.
+     * @param y The y-coordinate of the clicked location.
+     */
     private void addSymbol(double x, double y) {
         GraphicsObject clicked = grid.getElementAtLocalCoordinates(x, y);
         Cell cell = (Cell)clicked;
@@ -156,7 +187,11 @@ public class TicTacToeGame {
             winGame();
         }
     }
- 
+    
+    /**
+     * Handles Tic Tac Toe winning logic. A player wins if they have three
+     * matching symbols in a row, column, or diagonal.
+     */
     public void winGame(){
         for(int row = 0;row < 3;row++){
             if (checkWinningConditions(board[row][0],board[row][1],board[row][2])) {
@@ -183,10 +218,25 @@ public class TicTacToeGame {
             }
     }
 
+    /**
+     * Checks whether three board positions contain matching non-null values.
+     * 
+     * @param a The first board position to check.
+     * @param b The second board position to check.
+     * @param c The third board position to check.
+     * @return True if all three positions match and are not null; false otherwise.
+
+     */
     public boolean checkWinningConditions(Object a, Object b, Object c) {
         return (a != null && a.equals(b) && b.equals(c));
     }
 
+    /**
+     * Ends the round when a player wins.
+     * 
+     * @param a The row index of the winning symbol.
+     * @param b The column index of the winning symbol.
+     */
     public void endRoundWithWin(int a,int b) {
         isWon = true;
         isGameRunning = false;
@@ -194,6 +244,10 @@ public class TicTacToeGame {
         setWinCount();
     }
 
+    /**
+     * Ends the round in the case of a tie. Displays a pop-up message and
+     * changes the background color to purple.
+     */
     public void endRoundWithTie() {
         isGameRunning = false;
         popUpText.setText("Tie!");
@@ -203,6 +257,11 @@ public class TicTacToeGame {
          canvas.setBackground(Color.decode("#E0CCFF"));
     }
 
+    /**
+     * Displays the label indicating which player's turn is next.
+     * 
+     * @param symbol The symbol of the player whose turn is next.
+     */
     public void showPlayerTurn(String symbol) {
         String message;
         int x;
@@ -218,6 +277,13 @@ public class TicTacToeGame {
         canvas.add(displayedMessage);
     }
     
+    /**
+     * Displays a pop-up message announcing the winner and changes the
+     * background color based on the winning symbol.
+     * 
+     * @param a The row index of the winning symbol.
+     * @param b The column index of the winning symbol.
+     */
     public void showWinningMessage(int a,int b) {
         popUpText.setText("Player " + board[a][b] + " wins!");
         popUpText.setPosition(180, 155);
@@ -232,11 +298,24 @@ public class TicTacToeGame {
             }
     }
 
+    /**
+     * Updates the displayed win counts for both X and O.
+     */
     public void setWinCount() {
         xWinCountMessage.setText("X wins: " + xWinCount);
         oWinCountMessage.setText("O wins: " + oWinCount);
     }
 
+    /**
+     * Creates and displays a text label on the canvas.
+     * 
+     * @param message The text to display.
+     * @param x The x-coordinate of the label.
+     * @param y The y-coordinate of the label.
+     * @param fontSize The font size of the label.
+     * @param strokeWidth The stroke width of the label text.
+     * @return The created GraphicsText label.
+     */
     public GraphicsText createLabel(String message, int x, int y, int fontSize, double strokeWidth) {
         GraphicsText label = new GraphicsText(message, x, y);
         label.setFontSize(fontSize);
@@ -244,9 +323,5 @@ public class TicTacToeGame {
         label.setStrokeWidth(strokeWidth);
         canvas.add(label);
         return label;
-    }
-    
-    public static void main(String[] args){
-        new TicTacToeGame();
     }
 }
