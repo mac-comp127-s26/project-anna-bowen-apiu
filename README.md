@@ -21,12 +21,21 @@ through the terminal using Git commands:
 -Open the cloned project folder in Visual Studio Code.
 -Run the project from the terminal or using the appropriate run option in Visual Studio Code.
 
+*Resources referenced*
+-An online tic tac game was used as an inspiration
+-Google
+-Help from the preceptors and instructors(Amin Alhasim)
+-Code from already existing class projects
+
+*Limitation of the project*
+There no known bugs at the moment sometimes running it for the first the tie logic that sometimes does not run but runs on the second attempt
+
 **This is how the expected output should look like**
-**Screenshot**
 
-[alt text](tictactoegame.png)
+![Screenshot](tictactoegame.png)
 
-**slides https://docs.google.com/presentation/d/1ekkitlPdbx3UrjSgrSuUsqaM6Q_IqbK-m1Rtp70jwxU/edit?usp=sharing**
+[slides] https://docs.google.com/presentation/d/1ekkitlPdbx3UrjSgrSuUsqaM6Q_IqbK-m1Rtp70jwxU/edit?usp=sharing
 
-**#video**
+
+
 
