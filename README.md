@@ -34,6 +34,8 @@ There no known bugs at the moment sometimes running it for the first the tie log
 
 ![Screenshot](tictactoegame.png)
 
+![video](TicTacToePresentationVideo.mp4)
+
 [slides] https://docs.google.com/presentation/d/1ekkitlPdbx3UrjSgrSuUsqaM6Q_IqbK-m1Rtp70jwxU/edit?usp=sharing
 
 
