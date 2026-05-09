@@ -1,10 +1,10 @@
-**Tic Tac Toe game**
+**Tic Tac Toe Game**
 
-It is a 3 × 3 grid game  created by Mary Agou ,Anna Wurtz and Bowen. In the game two players, X and O, compete against each other. Each player has up to 8 possible ways to win: 2 diagonal combinations, 3 horizontal combinations, and 3 vertical combinations.
+It is a 3 × 3 grid game created by Mary Agou, Anna Wurtz and Bowen Tang. In the game, two players, X and O, compete against each other. Each player has 8 possible ways to win by placing three of their symbols either horizontally, vertically, or diagonally.
 
-Once a player wins, the game can be restarted, and the scores can also be reset at any time. Players have the option to continue playing new rounds after the previous game ends while keeping track of scores if they choose.
+The number of X and O wins is scored at the top of the screen. The board and scores can be reset at any time. Players have the option to continue playing new rounds after the previous game ends while keeping track of scores if they choose.
 
-The inspiration for this game came from past experiences of playing Tic-Tac-Toe, which motivated us to create a similar interactive version of the game.
+The inspiration for this game came from past experiences playing Tic-Tac-Toe, which motivated us to create a similar interactive version of the game.
 
 **Software**
 
@@ -24,21 +24,6 @@ through the terminal using Git commands:
 
 5.Run the project from the terminal or using the appropriate run option in Visual Studio Code.
 
-**Resources referenced**
-
-1.An online tic tac game was used as an inspiration
-
-2.Google
-
-3.Help from the preceptors and instructors(Amin Alhasim)
-
-4.Code from already existing class projects
-
-
-**Limitation of the project**
-
-There no known bugs at the moment sometimes running it for the first the tie logic that sometimes does not run but runs on the second attempt
-
 **This is how the expected output should look like**
 
 ![Screenshot](tictactoegame.png)
@@ -47,6 +32,16 @@ There no known bugs at the moment sometimes running it for the first the tie log
 
 [presentation slides](https://docs.google.com/presentation/d/1ekkitlPdbx3UrjSgrSuUsqaM6Q_IqbK-m1Rtp70jwxU/edit?usp=sharing)
 
+**Limitation of the project**
 
+Sometimes, the tie logic does not register when running the code for the first time. Other than that, the code works well and there are no known bugs.
 
+**Resources referenced**
 
+1.An online Tic Tac Toe game was used as an inspiration
+
+2.KiltGraphics API
+
+3.Help from the preceptors and instructors(Amin Alhasim)
+
+4.Code from already existing class projects
