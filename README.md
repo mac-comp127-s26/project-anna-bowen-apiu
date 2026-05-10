@@ -12,12 +12,12 @@ The software required to run this project is Visual Studio Code (version 1.108.2
 
 *To access the code:*
 
-1. Go to the project repository on [GitHub](https://github.com/mac-comp127-s26/project-anna-bowen-apiu)
+1. Go to the project repository on [GitHub](https://github.com/mac-comp127-s26/project-anna-bowen-apiu).
 
 2. Click the Code button on the repository page.
 
 3. Clone the project either using GitHub Desktop or
-through the terminal using Git commands:
+through the terminal using Git commands.
 
 4. Open the cloned project folder in Visual Studio Code.
 
