@@ -5,7 +5,7 @@ import edu.macalester.graphics.Rectangle;
  * Grid class for the Tic Tac Toe Board.
  * 
  * @author Anna Wurtz <awurtz@macalester.edu>
- * @author Apiu Agou <akur@macalester.edu>
+ * @author Mary Agou <akur@macalester.edu>
  * @author Bowen Tang <btang1@macalester.edu>
  * 
  * This class extends the GraphicsGroup class and creates the

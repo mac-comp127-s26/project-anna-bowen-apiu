@@ -13,7 +13,7 @@ import edu.macalester.graphics.ui.Button;
  * Main class for running and playing the Tic Tac Toe Game.
  * 
  * @author Anna Wurtz <awurtz@macalester.edu>
- * @author Apiu Agou <akur@macalester.edu>
+ * @author Mary Agou <akur@macalester.edu>
  * @author Bowen Tang <btang1@macalester.edu>
  * 
  * This class creates the game window, handles user interaction,
